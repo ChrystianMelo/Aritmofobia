@@ -14,7 +14,7 @@
 /**
 * @brief Verifca se o numero é primo.
 **/
-bool isEven(int number) {
+bool isOdd(int number) {
 	return number % 2 != 0;
 }
 
@@ -22,12 +22,10 @@ bool isEven(int number) {
 * @brief Classe principal do projeto.
 **/
 int main(int argc, char const* argv[]){
-	assert(argc == 2);
+	assert(argc == 1);
 	std::string inputFilename(argv[0]);
-	std::string outputFilename(argv[1]);
 	//std::string inputFilename("C:\\Users\\Chrystian Melo\\Documents\\Alg1\\Aritmofobia\\test_cases\\inputs\\test_case9.txt");
-	//std::string outputFilename("output.sol");
-
+	
 	std::ifstream myfileInput(inputFilename);
 	assert(myfileInput);
 
@@ -43,7 +41,7 @@ int main(int argc, char const* argv[]){
 		myfileInput >> from >> to >> weight;
 
 		// Steve só viaja entre duas cidades adjacentes se a estrada que conecta as duas cidades tiver comprimento par;
-		if (!isEven(weight)) {
+		if (!isOdd(weight)) {
 			graph.addVertex(from);
 			graph.addVertex(to);
 
@@ -60,11 +58,9 @@ int main(int argc, char const* argv[]){
 	std::vector<int> shortestPath = graph.dijkstra(searchSource, searchDestination);
 
 	// O caminho tra¸cado pelo algoritmo deve passar por um n´umero par de estradas.
-	int weight = (!shortestPath.empty() && isEven((int)shortestPath.size())) ? graph.calculateWeight(shortestPath) : -1;
+	int weight = (!shortestPath.empty() && isOdd((int)shortestPath.size())) ? graph.calculateWeight(shortestPath) : -1;
 
-	std::ofstream myfileOutput(outputFilename);
-	assert(myfileOutput);
-	myfileOutput << weight << std::endl;
+	std::cout << weight << std::endl;
 
 	return 0;
 }
