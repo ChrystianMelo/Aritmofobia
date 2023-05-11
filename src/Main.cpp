@@ -12,20 +12,20 @@
 #include "Graph.hpp"
 
 /**
-	\brief 
+* @brief Verifca se o numero é primo.
 **/
 bool isEven(int number) {
-	return number % 2 == 0;
+	return number % 2 != 0;
 }
 
 /**
-	\brief
+* @brief Classe principal do projeto.
 **/
 int main(int argc, char const* argv[]){
 	assert(argc == 2);
 	std::string inputFilename(argv[0]);
 	std::string outputFilename(argv[1]);
-	//std::string inputFilename("C:\\Users\\Chrystian Melo\\Documents\\Alg1\\Aritmofobia\\test_cases\\inputs\\test_case4.txt");
+	//std::string inputFilename("C:\\Users\\Chrystian Melo\\Documents\\Alg1\\Aritmofobia\\test_cases\\inputs\\test_case9.txt");
 	//std::string outputFilename("output.sol");
 
 	std::ifstream myfileInput(inputFilename);
@@ -42,8 +42,8 @@ int main(int argc, char const* argv[]){
 		int from, to, weight;
 		myfileInput >> from >> to >> weight;
 
-		// Só adiciona vertice no grafo se o peso for ímpar.
-		if (isEven(weight)) {
+		// Steve só viaja entre duas cidades adjacentes se a estrada que conecta as duas cidades tiver comprimento par;
+		if (!isEven(weight)) {
 			graph.addVertex(from);
 			graph.addVertex(to);
 
@@ -60,19 +60,11 @@ int main(int argc, char const* argv[]){
 	std::vector<int> shortestPath = graph.dijkstra(searchSource, searchDestination);
 
 	// O caminho tra¸cado pelo algoritmo deve passar por um n´umero par de estradas.
-	assert(isEven(shortestPath.size()));
-
-	std::cout << "Shortest path from " << searchSource << " to " << searchDestination << ": ";
-	for (const auto& d : shortestPath) {
-		std::cout << d << " ";
-	}
-	std::cout << std::endl;
-	std::cout << "Shortest path weight is " << graph.calculateWeight(shortestPath) << std::endl;
-
+	int weight = (!shortestPath.empty() && isEven((int)shortestPath.size())) ? graph.calculateWeight(shortestPath) : -1;
 
 	std::ofstream myfileOutput(outputFilename);
 	assert(myfileOutput);
-	myfileOutput << graph.calculateWeight(shortestPath) << std::endl;
+	myfileOutput << weight << std::endl;
 
 	return 0;
 }
