@@ -21,7 +21,7 @@
 
 # cc and flags
 CC = g++
-CXXFLAGS = -std=c++11 -g -Wall
+CXXFLAGS = -std=c++17 -g -Wall
 #CXXFLAGS = -std=c++11 -O3 -Wall
 
 # folders
