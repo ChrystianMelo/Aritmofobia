@@ -12,7 +12,7 @@
 #include "Graph.hpp"
 
 /**
- * @brief Verifca se o numero � primo.
+ * @brief Verifca se o numero � impar.
  **/
 bool isOdd(int number)
 {
